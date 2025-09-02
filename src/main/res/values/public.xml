@@ -1,0 +1,4 @@
+<!-- src/main/res/values/public.xml -->
+<resources>
+    <public name="review_bottom_sheet" type="layout"/>
+</resources>
