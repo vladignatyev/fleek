@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rate_btn">Rate now</string>
+    <string name="skip_btn">Hide</string>
+    <string name="do_you_like_label">Do you like this app?</string>
+</resources>
