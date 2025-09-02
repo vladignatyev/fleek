@@ -29,3 +29,6 @@ replay_pid*
 # Mac
 .DS_Store
 
+/local.properties
+/.idea/
+/.gradle/

@@ -1,4 +1,4 @@
-package com.vladignatyev.mobifleek
+package com.vladignatyev.mobifleek.reviews
 
 import android.app.Activity
 import android.content.Context
