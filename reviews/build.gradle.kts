@@ -1,6 +1,8 @@
 plugins {
     id("com.android.library")
+    id("org.jetbrains.kotlin.android")
 }
+
 
 android {
     namespace = "com.github.vladignatyev.mobifleek.reviews"
@@ -26,9 +28,13 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+    kotlinOptions {
+        jvmTarget = "11"
+    }
 }
 
 dependencies {
+    implementation("com.google.android.play:review:2.0.2")
 
     implementation("com.android.support:appcompat-v7:28.0.0")
     testImplementation("junit:junit:4.13.2")

@@ -13,4 +13,6 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+
+rootProject.name = "mobi-fleek-reviews"
 include(":reviews")

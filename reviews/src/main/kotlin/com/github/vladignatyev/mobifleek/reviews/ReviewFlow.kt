@@ -1,11 +1,9 @@
-package com.vladignatyev.mobifleek.reviews
+package com.github.vladignatyev.mobifleek.reviews
 
 import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.RatingBar
 import com.google.android.play.core.review.ReviewManagerFactory
 
@@ -22,11 +20,11 @@ class ReviewFlow(private val activity: Activity, parentView: View) {
         bottomSheet.post {
             bottomSheet.translationY = bottomSheet.height.toFloat() * 2.0f
         }
+    }
 
-        if (BuildConfig.DEBUG) {
-            val prefs = activity.getPreferences(Context.MODE_PRIVATE)
-            prefs.edit().putBoolean("is_review_saved", false).apply()
-        }
+    public fun clean() {
+        val prefs = activity.getPreferences(Context.MODE_PRIVATE)
+        prefs.edit().putBoolean("is_review_saved", false).apply()
     }
 
     private fun isReviewSaved(): Boolean {
