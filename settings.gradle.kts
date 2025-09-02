@@ -14,5 +14,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "mobi-fleek-reviews"
+rootProject.name = "fleek"
+
 include(":reviews")
+include(":reviews_example")
