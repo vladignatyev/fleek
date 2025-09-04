@@ -1,4 +1,5 @@
 # Fleek
+[![Jitpack artifacts](https://img.shields.io/badge/jitpack.io-artifacts-orange?logo=jitpack)](https://jitpack.io/#vladignatyev/fleek)
 
 Fleek is a collection of handy tools for modern Android applications. It offers drop‑in components that solve common problems and streamline app development.
 
