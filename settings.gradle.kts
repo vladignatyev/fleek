@@ -18,3 +18,5 @@ rootProject.name = "fleek"
 
 include(":reviews")
 include(":reviews_example")
+include(":ads")
+include(":ads_example")

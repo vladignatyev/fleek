@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fullscreen_ads_background">
+
+    <com.google.android.gms.ads.nativead.NativeAdView
+        android:id="@+id/native_ad_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ad_text_wrapper"
+                android:layout_width="180dp"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_gravity="right"
+                android:background="@color/fullscreen_ads_text_area_background"
+                >
+
+
+
+                <FrameLayout
+                    android:id="@+id/skip_panel"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/countdown_timer"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center|end"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/fullscreen_ads_countdown_text_color"
+                        android:visibility="visible" />
+
+                    <Button
+                        android:id="@+id/skip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center|end"
+                        android:layout_marginHorizontal="0dp"
+                        android:layout_marginVertical="0dp"
+                        android:textSize="14sp"
+                        android:background="@drawable/gnt_skip_fs"
+                        android:text="@string/skip_ads_btn_label"
+                        android:textColor="@color/fullscreen_ads_skip_btn_text_color"
+                        android:textStyle="bold" />
+
+                </FrameLayout>
+
+                <ImageView
+                    android:id="@+id/ad_icon"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:layout_marginTop="16dp"
+                    android:contentDescription="Icon for the ad."
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/skip_panel"
+                    tools:ignore="RtlSymmetry"
+                    tools:srcCompat="@drawable/googleg_standard_color_18" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/all_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ad_icon">
+
+
+
+                    <TextView
+                        android:id="@+id/ad_title"
+                        style="@style/NativeAd.AdHeadline.Light"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="4dp"
+                        android:paddingHorizontal="8dp"
+                        android:gravity="center"
+                        android:textColor="@color/fullscreen_ads_title_text_color"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Google Ads - Manage "
+                        />
+
+                    <RatingBar
+                        android:id="@+id/ad_rating_bar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:numStars="5"
+                        android:stepSize="0.1"
+                        android:rating="3.2"
+                        android:layout_marginTop="8dp"
+                        android:layout_gravity="center"
+                        android:paddingBottom="4dp"
+                        android:progressTint="@color/fullscreen_ads_rating_bar_tint"
+                        android:secondaryProgressTint="@color/fullscreen_ads_rating_bar_secondary_tint"
+                        android:progressBackgroundTint="@color/fullscreen_ads_rating_bar_background_tint"
+                        style="?android:attr/ratingBarStyleSmall"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/ad_secondary"
+                        />
+
+                    <TextView
+                        android:id="@+id/ad_price"
+                        style="@style/NativeAd.AdPrice.Light"
+                        android:textStyle="normal"
+                        android:textColor="@color/fullscreen_ads_price_text_color"
+                        android:textSize="11sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/ad_rating_bar"
+                        tools:text="$9.99" />
+
+
+                    <TextView
+                        android:id="@+id/ad_secondary"
+                        style="@style/NativeAd.AdAdvertiser.Light"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:singleLine="false"
+                        android:textColor="@color/fullscreen_ads_title_secondary_text_color"
+                        android:gravity="center"
+                        android:paddingHorizontal="4dp"
+                        android:ellipsize="none"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/ad_title"
+                        tools:text="Advertiser Name Could be large" />
+
+                    <TextView
+                        android:id="@+id/ad_body"
+                        style="@style/NativeAd.AdBody.Light"
+                        android:maxLines="5"
+                        android:paddingTop="8dp"
+                        android:paddingHorizontal="8dp"
+                        android:paddingBottom="8dp"
+                        android:textColor="@color/fullscreen_ads_title_body_text_color"
+                        android:gravity="center"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/ad_price"
+                        tools:text="Google requires 90 characters to be shown fully without truncation. The best unrealistic." />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <Button
+                    android:id="@+id/ad_cta"
+                    style="@style/NativeAd.AdButton"
+                    android:backgroundTint="@color/fullscreen_ads_cta_button_tint"
+                    android:layout_margin="4dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/fullscreen_ads_cta_button_text_color"
+                    android:layout_width="match_parent"
+                    android:textStyle="bold"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:text="INSTALL" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.gms.ads.nativead.MediaView
+                android:id="@+id/ad_media"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toStartOf="@id/ad_text_wrapper"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/ad_attribution"
+                style="@style/NativeAd.AdAttribution.Light"
+                android:text="@string/ad_attribution"
+                android:background="#ff6b9673"
+                android:textColor="#ffffff"
+                app:layout_constraintStart_toStartOf="@id/ad_text_wrapper"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_gravity="left|bottom"
+                tools:visibility="visible" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+
+
+    </com.google.android.gms.ads.nativead.NativeAdView>
+</androidx.constraintlayout.widget.ConstraintLayout>

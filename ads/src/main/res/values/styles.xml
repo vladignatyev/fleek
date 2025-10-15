@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="NativeAd.AdAttribution">
+        <item name="android:textColor">#FFEEEEEE</item>
+        <item name="android:text">Ad</item>
+
+        <item name="android:textAlignment">center</item>
+        <item name="android:background">#ff6b9673</item>
+
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingStart">4dp</item>
+        <item name="android:paddingEnd">4dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:layout_marginEnd">4dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+
+    <style name="NativeAd.AdAttribution.Light" parent="NativeAd.AdAttribution">
+        <item name="android:background">#f6b26b</item>
+        <item name="android:textColor">#ff222222</item>
+
+    </style>
+
+    <style name="NativeAd.AdBody">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxLines">3</item>
+        <item name="android:textColor">#FFEEEEEE</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="NativeAd.AdStore">
+        <item name="android:textColor">#FFEEEEEE</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+    <style name="NativeAd.AdStore.Light">
+        <item name="android:textColor">#FF222222</item>
+    </style>
+    <style name="NativeAd.AdBody.Light" parent="NativeAd.AdBody">
+        <item name="android:textColor">#FF222222</item>
+    </style>
+
+
+    <style name="NativeAd.AdAdvertiser">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#FFEEEEEE</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="NativeAd.AdAdvertiser.Light" parent="NativeAd.AdAdvertiser">
+        <item name="android:textColor">#FF222222</item>
+    </style>
+
+
+    <style name="NativeAd.AdButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:textColor">#F9F9F9</item>
+        <item name="android:backgroundTint">#43A047</item>
+    </style>
+    <style name="NativeAd.AdButton.Light" parent="NativeAd.AdButton">
+        <item name="android:textColor">#FF222222</item>
+    </style>
+
+
+    <style name="NativeAd.Small">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/default_spacing</item>
+        <item name="android:paddingBottom">@dimen/default_spacing</item>
+        <item name="android:paddingTop">@dimen/default_spacing</item>
+    </style>
+
+    <!--    <style name="AppTheme.DialogButton">-->
+    <!--        <item name="android:drawableEnd">@android:drawable/ic_menu_save</item>-->
+    <!--    </style>-->
+
+    <style name="NativeAd.AdPrice">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingStart">4dp</item>
+        <item name="android:paddingEnd">4dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:textColor">#FF666666</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="NativeAd.AdPrice.Light" parent="NativeAd.AdPrice">
+        <item name="android:textColor">#FF222222</item>
+    </style>
+
+    <style name="NativeAd.AdHeadline">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#FFEEEEEE</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="NativeAd.AdHeadline.Light" parent="NativeAd.AdHeadline">
+        <item name="android:textColor">#FF222222</item>
+    </style>
+
+    <style name="NativeAd.AdIcon">
+        <item name="android:layout_width">72dp</item>
+        <item name="android:layout_height">72dp</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:contentDescription">Icon</item>
+    </style>
+
+    <style name="NativeAd.AdMediaView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginBottom">@dimen/default_spacing</item>
+    </style>
+
+    <style name="NativeAd"></style>
+
+</resources>
