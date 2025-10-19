@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="skip_ads_btn_label">Ignorer ›</string>
-    <string name="skip_ads_text">Vous pouvez passer dans %1$d secondes…</string>
-</resources>

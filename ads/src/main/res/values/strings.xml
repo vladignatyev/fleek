@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="ad_attribution" translatable="false">Ad</string>
-
-    <string name="skip_ads_btn_label">Skip ›</string>
-    <string name="skip_ads_text">You can skip in %1$d…</string>
-</resources>
