@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#333333"
+    android:padding="8dp"
+    >
+
+    <com.google.android.gms.ads.nativead.NativeAdView
+        android:id="@+id/native_ad_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ad_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ad_text_wrapper"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <ImageView
+                    android:id="@+id/ad_icon"
+                    style="@style/NativeAd.AdIcon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="RtlSymmetry"
+                    tools:srcCompat="@drawable/googleg_standard_color_18" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ad_icon"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/ad_title"
+                        style="@style/NativeAd.AdHeadline"
+                        android:maxLines="2"
+                        android:minLines="1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="It is 25 characters wit. Some Unrealistically Long Headline - Application on Google - Play Install Now" />
+
+
+                    <TextView
+                        android:id="@+id/ad_body"
+                        style="@style/NativeAd.AdBody"
+                        android:ellipsize="end"
+                        android:maxLines="3"
+                        android:minLines="1"
+                        android:paddingBottom="2dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/ad_title"
+                        app:layout_constraintTop_toBottomOf="@id/ad_title"
+                        tools:text="Google requires 90 characters to be shown fully without truncation. The best unrealistic." />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/ad_body">
+
+                        <TextView
+                            android:id="@+id/ad_price"
+                            style="@style/NativeAd.AdPrice"
+                            android:paddingBottom="0dp"
+                            app:layout_constraintEnd_toStartOf="@+id/ad_rating_value"
+                            app:layout_constraintTop_toTopOf="@+id/ad_attribution"
+                            tools:text="FREE" />
+
+                        <TextView
+                            android:id="@+id/ad_attribution"
+                            style="@style/NativeAd.AdAttribution"
+                            android:visibility="invisible"
+                            app:layout_constraintBaseline_toBaselineOf="@id/ad_secondary"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="AD"
+                            tools:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/ad_secondary"
+                            style="@style/NativeAd.AdAdvertiser"
+                            android:layout_width="160dp"
+                            android:layout_height="match_parent"
+                            android:ellipsize="end"
+                            android:paddingStart="4dp"
+                            android:singleLine="true"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toEndOf="@+id/ad_attribution"
+                            app:layout_constraintTop_toTopOf="@+id/ad_attribution"
+                            tools:text="Advertiser Could Be Long Name" />
+
+
+                        <TextView
+                            android:id="@+id/ad_rating_value"
+                            style="@style/NativeAd.AdPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_marginEnd="2dp"
+                            tools:text="★ 4.8" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <com.google.android.gms.ads.nativead.MediaView
+                android:id="@+id/ad_media"
+                style="@style/NativeAd.AdMediaView"
+                android:layout_height="240dp"
+                android:layout_marginTop="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ad_text_wrapper" />
+
+            <Button
+                android:id="@+id/ad_cta"
+                style="@style/NativeAd.AdButton"
+                android:backgroundTint="#FF8F00"
+                android:layout_height="48dp"
+                android:layout_width="match_parent"
+                android:textColor="#FEFEFE"
+                android:textStyle="bold"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ad_media"
+                tools:text="INSTALL"
+                tools:visibility="visible" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.gms.ads.nativead.NativeAdView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
