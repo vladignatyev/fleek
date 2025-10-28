@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="fullscreen_ads_background" value="#FFEEEEEE" />
+    <color name="mediaview_background">#FFDDDDDD</color>
     <color name="fullscreen_ads_text_area_background" value="#ccffffff" />
     <color name="fullscreen_ads_cta_button_tint">#43A047</color>
     <color name="fullscreen_ads_title_text_color">#ff333333</color>
