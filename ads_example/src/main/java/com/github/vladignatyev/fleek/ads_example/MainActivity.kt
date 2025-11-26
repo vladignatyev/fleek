@@ -19,6 +19,8 @@ import com.google.android.gms.ads.VideoOptions
 import com.google.android.gms.ads.nativead.NativeAdOptions
 import com.google.android.gms.ads.nativead.NativeAdOptions.ADCHOICES_TOP_LEFT
 import kotlinx.coroutines.launch
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
 
 
 class MainActivity : AppCompatActivity(R.layout.main_activity) {
@@ -30,7 +32,8 @@ class MainActivity : AppCompatActivity(R.layout.main_activity) {
     // Daisy-chained native ad placement to use in Fullscreen Native Ad
     private var daisyChainedFullscreenNativePlacement: BasicNativePlacement = BasicNativePlacement(
         ChainNativeAdLoader(
-            NativeAdChain.fromList(
+            individualCallTimeout = 10.milliseconds,
+            chain = NativeAdChain.fromList(
                 nativeChainAIDs,
                 nativeAdOptions = NativeAdOptions.Builder()
                     .setAdChoicesPlacement(ADCHOICES_TOP_LEFT)

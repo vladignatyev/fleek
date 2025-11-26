@@ -163,7 +163,7 @@
             <FrameLayout
                 android:id="@+id/skip_panel"
                 android:layout_width="wrap_content"
-                android:layout_height="32dp"
+                android:layout_height="52dp"
                 android:paddingTop="8dp"
                 android:paddingEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent"

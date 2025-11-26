@@ -49,8 +49,16 @@ open class BaseAdLoader<AdCLass>(reportingAdUnitId: String) {
         activity: FragmentActivity,
         listener: BaseAdLoaderListener<AdCLass>,
         timeout: Duration,
-    ): AdCLass? = withTimeoutOrNull(timeout) {
-        return@withTimeoutOrNull awaitLoaded(activity, listener)
+    ): AdCLass? {
+        val result = withTimeoutOrNull(timeout) {
+            return@withTimeoutOrNull awaitLoaded(activity, listener)
+        }
+        if (result == null) {
+            listener.onTimeout()
+            return result
+        } else {
+            return result
+        }
     }
 }
 
@@ -60,7 +68,8 @@ open class NativeAdChain() : AdChain<NativeAd>() {
     companion object {
         open fun fromList(
             adUnitIds: List<String>,
-            nativeAdOptions: NativeAdOptions = NativeAdOptions.Builder().setVideoOptions(VideoOptions.Builder().setStartMuted(false).build()).build()
+            nativeAdOptions: NativeAdOptions = NativeAdOptions.Builder()
+                .setVideoOptions(VideoOptions.Builder().setStartMuted(false).build()).build()
         ): NativeAdChain {
             val result = NativeAdChain()
             adUnitIds.forEach { adUnitId ->
