@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import androidx.annotation.RequiresPermission
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
@@ -109,6 +110,8 @@ class FullscreenAdsFragment : Fragment() {
                 adsBinding = NativeAdsBinding(adView)
                 adsBinding.populate(nativeAd)
             }
+
+            adView.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.fullscreen_ads_background))
 
             return adView
         } catch (e: Exception) {
