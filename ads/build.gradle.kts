@@ -46,7 +46,7 @@ dependencies {
 
     implementation("com.google.android.gms:play-services-ads-identifier")
     implementation("com.android.installreferrer:installreferrer:2.2")
-    implementation("com.tenjin:android-sdk:1.16.7")
+    implementation("com.tenjin:android-sdk:1.16.5")
 
     implementation ("com.google.android.gms:play-services-ads:24.6.0")
 }
