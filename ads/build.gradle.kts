@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.google.ads"
+    namespace = "com.google.fleekads"
     compileSdk = 36
 
     defaultConfig {

@@ -1,25 +1,23 @@
 package com.github.vladignatyev.fleek.ads_example
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.github.vladignatyev.fleek.ads_example.databinding.MainActivityBinding
-import com.google.ads.InterstitialPlacement
-import com.google.ads.attribution.DummyAttribution
-import com.google.ads.attribution.TenjinAttributionWithAdRevenue
-import com.google.ads.core.AdListenerWithRevenue
-import com.google.ads.core.BasicNativeAdLoader
-import com.google.ads.core.ChainNativeAdLoader
-import com.google.ads.core.NativeAdChain
-import com.google.ads.formats.AppOpenAdCallback
-import com.google.ads.formats.AppOpenPlacement
-import com.google.ads.formats.BasicNativePlacement
-import com.google.ads.formats.FullScreenAds
+import com.google.fleekads.core.AdListenerWithRevenue
+import com.google.fleekads.core.ChainNativeAdLoader
+import com.google.fleekads.core.NativeAdChain
+import com.google.fleekads.formats.AppOpenAdCallback
+import com.google.fleekads.formats.AppOpenPlacement
+import com.google.fleekads.formats.BasicNativePlacement
+import com.google.fleekads.formats.FullScreenAds
+import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.RequestConfiguration
 import com.google.android.gms.ads.VideoOptions
 import com.google.android.gms.ads.nativead.NativeAdOptions
 import com.google.android.gms.ads.nativead.NativeAdOptions.ADCHOICES_TOP_LEFT
 import kotlinx.coroutines.launch
-import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 
 
@@ -32,7 +30,7 @@ class MainActivity : AppCompatActivity(R.layout.main_activity) {
     // Daisy-chained native ad placement to use in Fullscreen Native Ad
     private var daisyChainedFullscreenNativePlacement: BasicNativePlacement = BasicNativePlacement(
         ChainNativeAdLoader(
-            individualCallTimeout = 10.milliseconds,
+            individualCallTimeout = 5000.milliseconds,
             chain = NativeAdChain.fromList(
                 nativeChainAIDs,
                 nativeAdOptions = NativeAdOptions.Builder()
@@ -59,9 +57,29 @@ class MainActivity : AppCompatActivity(R.layout.main_activity) {
         binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initAppOpen()
 
-        showContent()
+                    MobileAds.setRequestConfiguration(
+                RequestConfiguration.Builder()
+                    .setTestDeviceIds(listOf("3BB3D2B06C43243B0384C4DDD40987F4")).build()
+            )
+        MobileAds.initialize(this@MainActivity) { initializationStatus ->
+//            for (entry in initializationStatus.adapterStatusMap.entries) {
+//                val adapterClass = entry.key
+//                val status: AdapterStatus = entry.value!!
+//                Log.d(
+//                    "Ads",
+//                    String.format(
+//                        "Adapter name: %s, Description: %s, Latency: %d",
+//                        adapterClass, status.description, status.latency
+//                    )
+//                )
+//            }
+            initAppOpen()
+
+            showContent()
+
+        }
+
     }
 
     private fun showContent() {
@@ -105,6 +123,10 @@ class MainActivity : AppCompatActivity(R.layout.main_activity) {
             presenter?.show(R.id.fragmentContainer) {
                 // This code will run after ad impression handler triggered.
                 appOpenAdsPlacement.startTrackResume()
+            }
+
+            if (presenter == null) {
+                Toast.makeText(this@MainActivity, "No fullscreen ads loaded.", Toast.LENGTH_LONG).show()
             }
         }
     }

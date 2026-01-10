@@ -1,6 +1,6 @@
 package com.github.vladignatyev.fleek.ads_example
 
-import com.google.ads.attribution.DummyAttribution
+import com.google.fleekads.attribution.DummyAttribution
 
 /**
  * Declaring ad unit IDs mapping.
@@ -12,8 +12,8 @@ const val interAID = "ca-app-pub-3940256099942544/1033173712"
 
 val nativeChainAIDs = listOf(
     "ca-app-pub-3940256099942544/2247696110", // high ecpm
-    "ca-app-pub-3940256099942544/2247696110", // medium ecpm
-    "ca-app-pub-3940256099942544/2247696110", // low ecpm
+//    "ca-app-pub-3940256099942544/2247696110", // medium ecpm
+//    "ca-app-pub-3940256099942544/2247696110", // low ecpm
 )
 
 // Define the attribution/ILRD handler provider.

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="fullscreen_ads_background" value="#FFEEEEEE" />
+    <color name="fullscreen_ads_background_color">#FFEEEEEE</color>
     <color name="mediaview_background">#FFFFFFFF</color>
-    <color name="fullscreen_ads_text_area_background" value="#ccffffff" />
+    <color name="fullscreen_ads_text_area_background">#ccffffff</color>
     <color name="fullscreen_ads_cta_button_tint">#43A047</color>
     <color name="fullscreen_ads_title_text_color">#ff333333</color>
     <color name="fullscreen_ads_title_secondary_text_color">#ff555555</color>

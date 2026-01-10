@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/fullscreen_ads_background"
+    android:background="@color/fullscreen_ads_background_color"
     >
 
     <com.google.android.gms.ads.nativead.NativeAdView

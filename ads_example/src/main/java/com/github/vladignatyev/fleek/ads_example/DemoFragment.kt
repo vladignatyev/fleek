@@ -8,21 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import com.github.vladignatyev.fleek.ads_example.databinding.FragmentDemoBinding
-import com.github.vladignatyev.fleek.ads_example.databinding.MainActivityBinding
-import com.google.ads.InterstitialPlacement
-import com.google.ads.OnAdDismissed
-import com.google.ads.core.AdListenerWithRevenue
-import com.google.ads.core.BasicNativeAdLoader
-import com.google.ads.core.ChainNativeAdLoader
-import com.google.ads.core.NativeAdChain
-import com.google.ads.core.NativeAdsBinding
-import com.google.ads.formats.AppOpenAdCallback
-import com.google.ads.formats.AppOpenPlacement
-import com.google.ads.formats.BasicNativePlacement
-import com.google.ads.formats.FullScreenAds
+import com.google.fleekads.InterstitialPlacement
+import com.google.fleekads.OnAdDismissed
+import com.google.fleekads.core.AdListenerWithRevenue
+import com.google.fleekads.core.BasicNativeAdLoader
+import com.google.fleekads.core.NativeAdsBinding
+import com.google.fleekads.formats.BasicNativePlacement
 import com.google.android.gms.ads.VideoOptions
 import com.google.android.gms.ads.nativead.NativeAdOptions
-import com.google.android.gms.ads.nativead.NativeAdOptions.ADCHOICES_TOP_LEFT
 import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.seconds
 
