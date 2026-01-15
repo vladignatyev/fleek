@@ -70,20 +70,22 @@
                         android:id="@+id/ad_title"
                         style="@style/NativeAd.AdHeadline.Light"
                         android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:paddingTop="4dp"
+                        android:paddingStart="4dp"
                         android:textColor="@color/fullscreen_ads_title_text_color"
-                        android:textSize="22sp"
+                        android:textSize="18sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0"
                         app:layout_constraintStart_toEndOf="@id/ad_icon"
-                        app:layout_constraintTop_toTopOf="@id/ad_icon"
-                        tools:text="Shopee 10.10 Brands Festival" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Test Ad : ILLEGEAR ATLAS (AMD) (AMD Ryzen" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        android:paddingStart="4dp"
                         app:layout_constraintStart_toEndOf="@id/ad_icon"
                         app:layout_constraintTop_toBottomOf="@id/ad_title">
 
@@ -127,7 +129,8 @@
                     android:paddingHorizontal="4dp"
                     android:layout_marginVertical="4dp"
                     android:textColor="@color/fullscreen_ads_title_body_text_color"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
+                    android:lineSpacingExtra="4sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/icon_and_title"
