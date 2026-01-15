@@ -170,7 +170,7 @@
                     android:textColor="@color/fullscreen_ads_price_text_color"
                     android:textSize="18sp"
                     android:textStyle="normal"
-                    android:marginEnd="4dp"
+                    android:layout_marginEnd="4dp"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:text="$19.99" />
