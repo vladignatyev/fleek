@@ -10,7 +10,7 @@
     <color name="fullscreen_ads_countdown_text_color">#FF000000</color>
     <color name="fullscreen_ads_skip_btn_text_color">#000</color>
     <color name="fullscreen_ads_cta_button_text_color">#FEFEFE</color>
-    <color name="fullscreen_ads_price_text_color">#ff777777</color>
+    <color name="fullscreen_ads_price_text_color">#ff333333</color>
     <color name="fullscreen_ads_rating_bar_tint">#ffffaa00</color>
     <color name="fullscreen_ads_rating_bar_secondary_tint">#ff808000</color>
     <color name="fullscreen_ads_rating_bar_background_tint">#ff333333</color>
