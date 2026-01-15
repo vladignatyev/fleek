@@ -42,5 +42,6 @@
         @string/skip_ads_btn_label,
         @string/skip_ads_text,
         @layout/*,
+        @drawable/*,
         @style/gnt_* , @style/NativeAd*
     " />
