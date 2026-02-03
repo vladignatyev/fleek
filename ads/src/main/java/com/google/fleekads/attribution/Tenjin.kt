@@ -11,6 +11,38 @@ import com.tenjin.android.TenjinSDK
 import org.json.JSONObject
 
 
+data class PaidEvent(
+    val adUnitId: String,
+    val adValueMicros: Long,
+    val currencyCode: String,
+    val precisionType: Int
+) {
+    fun toJSON(): JSONObject {
+        val json = JSONObject()
+        json.put("ad_unit_id", adUnitId)
+        json.put("currency_code", currencyCode)
+        json.put("value_micros", adValueMicros)
+        json.put("precision_type", precisionType)
+        return json
+    }
+
+    companion object {
+        fun fromAdValue(adUnitId: String, adValue: AdValue): PaidEvent {
+            // Extract the impression-level ad revenue data
+            val valueMicros = adValue.valueMicros
+            val currencyCode = adValue.currencyCode
+            val precisionType = adValue.precisionType
+
+            return PaidEvent(
+                adUnitId = adUnitId,
+                adValueMicros = valueMicros,
+                currencyCode = currencyCode,
+                precisionType = precisionType,
+            )
+        }
+    }
+}
+
 // TODO: Make a general class independent of Tenjin
 class TenjinAttributionWithAdRevenue(
     private val activity: Context, private val sdkKey: String
@@ -35,39 +67,6 @@ class TenjinAttributionWithAdRevenue(
 
         return createDeferredPaidEventListener(adUnitId)
     }
-
-    data class PaidEvent(
-        val adUnitId: String,
-        val adValueMicros: Long,
-        val currencyCode: String,
-        val precisionType: Int
-    ) {
-        fun toJSON(): JSONObject {
-            val json = JSONObject()
-            json.put("ad_unit_id", adUnitId)
-            json.put("currency_code", currencyCode)
-            json.put("value_micros", adValueMicros)
-            json.put("precision_type", precisionType)
-            return json
-        }
-
-        companion object {
-            fun fromAdValue(adUnitId: String, adValue: AdValue): PaidEvent {
-                // Extract the impression-level ad revenue data
-                val valueMicros = adValue.valueMicros
-                val currencyCode = adValue.currencyCode
-                val precisionType = adValue.precisionType
-
-                return PaidEvent(
-                    adUnitId = adUnitId,
-                    adValueMicros = valueMicros,
-                    currencyCode = currencyCode,
-                    precisionType = precisionType,
-                )
-            }
-        }
-    }
-
 
     val deferredPaidEvents = ArrayList<PaidEvent>()
 
