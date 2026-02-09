@@ -44,9 +44,9 @@ dependencies {
 
     implementation("androidx.lifecycle:lifecycle-process:2.9.2")
 
-    implementation("com.google.android.gms:play-services-ads-identifier")
+    implementation("com.google.android.gms:play-services-ads-identifier:18.3.0")
     implementation("com.android.installreferrer:installreferrer:2.2")
-    implementation("com.tenjin:android-sdk:1.16.5")
+    implementation("com.tenjin:android-sdk:1.17.1")
 
-    implementation ("com.google.android.gms:play-services-ads:24.6.0")
+    implementation ("com.google.android.gms:play-services-ads:24.9.0")
 }
