@@ -140,9 +140,13 @@ class FullscreenAdsFragment : Fragment() {
 
 
     fun finalizeImpression() {
+        if (!isAdded) return
+        if (parentFragmentManager.isStateSaved) return
+
         parentFragmentManager.popBackStack(
             BACKSTACK_FRAGMENT_NAME, FragmentManager.POP_BACK_STACK_INCLUSIVE
         )
+
         listener?.onFinishedListener()
     }
 
@@ -217,7 +221,7 @@ class FullScreenAds(
 
             managedFragment.setOnFinishedListener(listener)
 
-            fragmentActivity.onBackPressedDispatcher.addCallback(null) {
+            fragmentActivity.onBackPressedDispatcher.addCallback(fragmentActivity) {
                 managedFragment.finalizeImpression()
                 listener()
             }
