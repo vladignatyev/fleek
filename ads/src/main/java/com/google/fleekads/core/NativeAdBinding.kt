@@ -82,22 +82,23 @@ class NativeAdsBinding(val rootView: View) {
         }
 
         //  Set the secondary view to be the star rating if available.
-        if (ratingValue != null) {
-            if (starRating != null && starRating > 0) {
+        if (starRating != null) {
+            if (ratingValue != null) {
+                if (starRating > 0) {
                     ratingValue!!.visibility = View.VISIBLE
                     ratingValue!!.text = String.format("★ %.1f", starRating.toFloat())
                     nativeAdView!!.starRatingView = ratingValue
-            } else {
-                ratingValue!!.visibility = View.GONE
-            }
-        }
-        if (ratingBar != null) {
-            if (starRating != null && starRating > 0) {
-                ratingBar!!.visibility = View.VISIBLE
-                ratingBar!!.rating = starRating.toFloat()
-                nativeAdView!!.starRatingView = ratingBar
-            } else {
-                ratingBar!!.visibility = View.GONE
+                } else {
+                    ratingValue!!.visibility = View.GONE
+                }
+            } else if (ratingBar != null) {
+                if (starRating > 0) {
+                    ratingBar!!.visibility = View.VISIBLE
+                    ratingBar!!.rating = starRating.toFloat()
+                    nativeAdView!!.starRatingView = ratingBar
+                } else {
+                    ratingBar!!.visibility = View.GONE
+                }
             }
         }
 
@@ -122,9 +123,13 @@ class NativeAdsBinding(val rootView: View) {
         }
 
         if (bodyView != null) {
-            bodyView!!.text = body
-            bodyView!!.visibility = View.VISIBLE
-            nativeAdView!!.bodyView = bodyView
+            if (body != null) {
+                bodyView!!.text = body
+                bodyView!!.visibility = View.VISIBLE
+                nativeAdView!!.bodyView = bodyView
+            } else {
+                bodyView!!.visibility = View.GONE
+            }
         }
 
         if (adAttribution != null) {
@@ -132,9 +137,13 @@ class NativeAdsBinding(val rootView: View) {
         }
 
         if (callToActionView != null) {
-            callToActionView!!.visibility = View.VISIBLE
-            callToActionView!!.text = cta
-            nativeAdView!!.callToActionView = callToActionView
+            if (cta != null) {
+                callToActionView!!.visibility = View.VISIBLE
+                callToActionView!!.text = cta
+                nativeAdView!!.callToActionView = callToActionView
+            } else {
+                callToActionView!!.visibility = View.GONE
+            }
         }
 
         nativeAdView!!.setNativeAd(nativeAd)

@@ -10,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import androidx.annotation.RequiresPermission
@@ -137,7 +139,7 @@ class FullscreenAdsFragment : Fragment() {
     }
 
 
-    private fun finalizeImpression() {
+    fun finalizeImpression() {
         parentFragmentManager.popBackStack(
             BACKSTACK_FRAGMENT_NAME, FragmentManager.POP_BACK_STACK_INCLUSIVE
         )
@@ -214,6 +216,11 @@ class FullScreenAds(
             managedFragment.layout = layoutRes
 
             managedFragment.setOnFinishedListener(listener)
+
+            fragmentActivity.onBackPressedDispatcher.addCallback(null) {
+                managedFragment.finalizeImpression()
+                listener()
+            }
 
             fragmentActivity.lifecycleScope.launch {
                 delay(50) // make suspend call, so if coroutine suspends, the block below won't execute
