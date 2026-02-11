@@ -113,6 +113,12 @@ class FullscreenAdsFragment : Fragment() {
 
                 adsBinding = NativeAdsBinding(adView)
                 adsBinding.populate(nativeAd)
+
+                requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+                    if (skip.isEnabled) {
+                        finalizeImpression()
+                    }
+                }
             }
 
 //            val id = com.google.fleekads.R.color.fullscreen_ads_background_color
@@ -131,9 +137,6 @@ class FullscreenAdsFragment : Fragment() {
             )
 
 
-            requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-                finalizeImpression()
-            }
 
             return adView
         } catch (e: Exception) {
