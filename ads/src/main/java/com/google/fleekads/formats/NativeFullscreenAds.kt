@@ -130,6 +130,11 @@ class FullscreenAdsFragment : Fragment() {
                 ContextCompat.getColor(requireContext(), com.google.fleekads.R.color.fullscreen_ads_background_color)
             )
 
+
+            requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+                finalizeImpression()
+            }
+
             return adView
         } catch (e: Exception) {
             Log.e(TAG, e.message.toString())
@@ -221,10 +226,6 @@ class FullScreenAds(
 
             managedFragment.setOnFinishedListener(listener)
 
-            fragmentActivity.onBackPressedDispatcher.addCallback(fragmentActivity) {
-                managedFragment.finalizeImpression()
-                listener()
-            }
 
             fragmentActivity.lifecycleScope.launch {
                 delay(50) // make suspend call, so if coroutine suspends, the block below won't execute
