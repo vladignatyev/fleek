@@ -91,11 +91,10 @@ class MainActivity : FragmentActivity() {
         MobileAds.initialize(this)
 
         setContent {
-
             FleekTheme {
                 Box(Modifier.fillMaxSize()) {
                     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                        Column {
+                        Column(modifier = Modifier.fillMaxSize().padding(40.dp)) {
                             Greeting(
                                 name = "Android",
                                 modifier = Modifier.padding(innerPadding)
