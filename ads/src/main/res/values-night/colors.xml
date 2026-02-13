@@ -21,5 +21,5 @@
     <color name="gnt_skip_fs_neutral_btn_background">#FF273141</color>
     <color name="gnt_skip_fs_neutral_btn_background_night">#FFF3F4F6</color>
     <color name="fullscreen_ads_text_area_panel_background">#FF222222</color>
-    <color name="fullscreen_ads_skip_panel_bacground">#77000000</color>
+    <color name="fullscreen_ads_skip_panel_bacground">#80000000</color>
 </resources>
