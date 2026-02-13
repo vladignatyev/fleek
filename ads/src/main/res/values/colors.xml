@@ -2,16 +2,28 @@
 <resources>
     <color name="fullscreen_ads_background_color">#FFEEEEEE</color>
     <color name="mediaview_background">#FFFFFFFF</color>
-    <color name="fullscreen_ads_text_area_background">#ccffffff</color>
+    <color name="fullscreen_ads_text_area_background">#b0cccccc</color>
     <color name="fullscreen_ads_cta_button_tint">#43A047</color>
+
+    <color name="fullscreen_ads_cta_orange_button_tint">#FF8F00</color>
+
     <color name="fullscreen_ads_title_text_color">#ff333333</color>
     <color name="fullscreen_ads_title_secondary_text_color">#ff555555</color>
     <color name="fullscreen_ads_title_body_text_color">#ff333333</color>
     <color name="fullscreen_ads_countdown_text_color">#FF000000</color>
     <color name="fullscreen_ads_skip_btn_text_color">#000</color>
+    <color name="fullscreen_ads_skip_neutral_btn_text_color">#FFFEFEFE</color>
+    <color name="fullscreen_ads_cta_neutral_button_tint">#FFF3F4F6</color>
+    <color name="fullscreen_ads_cta_neutral_button_text_color">#FF111827</color>
     <color name="fullscreen_ads_cta_button_text_color">#FEFEFE</color>
     <color name="fullscreen_ads_price_text_color">#ff333333</color>
     <color name="fullscreen_ads_rating_bar_tint">#ffffaa00</color>
     <color name="fullscreen_ads_rating_bar_secondary_tint">#ff808000</color>
     <color name="fullscreen_ads_rating_bar_background_tint">#ff333333</color>
+
+    <color name="gnt_skip_fs_neutral_btn_background">#FF273141</color>
+    <color name="gnt_skip_fs_neutral_btn_background_night">#FFF3F4F6</color>
+    <color name="fullscreen_ads_text_area_panel_background">#FFFEFEFE</color>
+    <color name="fullscreen_ads_skip_panel_bacground">#33000000</color>
+    <color name="ad_attribution_bg">#4F7E58</color>
 </resources>

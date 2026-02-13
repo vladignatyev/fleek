@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include android:id="@+id/native_ad" layout="@layout/medium_template_view_dark_transparent" />
+        <include android:id="@+id/native_ad" layout="@layout/big_mamba_large_text_orange" />
 
         <Button
             android:id="@+id/loadAndShowNativeAdButton"

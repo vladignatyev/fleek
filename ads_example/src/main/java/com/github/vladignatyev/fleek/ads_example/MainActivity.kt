@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity(R.layout.main_activity) {
     // Fullscreen Native Ad definition.
     private var fullscreenNativeAds: FullScreenAds = FullScreenAds(
         placement = daisyChainedFullscreenNativePlacement,
-        layout = com.google.ads.R.layout.fullscreen_view
+        layout = com.google.fleekads.R.layout.fullscreen_view_neutral_btn
     )
 
 

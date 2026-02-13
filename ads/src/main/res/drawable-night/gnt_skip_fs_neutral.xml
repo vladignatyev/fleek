@@ -3,5 +3,5 @@
     android:shape="rectangle">
 
     <corners android:radius="16dp" /> <!-- радиус закругления краев -->
-    <solid android:color="#FFFFFFFF" /> <!-- цвет кнопки -->
+    <solid android:color="@color/gnt_skip_fs_neutral_btn_background_night" /> <!-- цвет кнопки -->
 </shape>

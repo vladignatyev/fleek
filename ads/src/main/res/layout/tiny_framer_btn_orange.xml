@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/fullscreen_ads_background_color">
+    android:background="@color/fullscreen_ads_background_color"
+    >
 
     <com.google.android.gms.ads.nativead.NativeAdView
         android:id="@+id/native_ad_view"
@@ -15,15 +16,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ad_row"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/ad_media_wrapper"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_width="0dp"
+                android:layout_height="160dp"
                 android:background="@color/mediaview_background"
                 app:layout_constraintEnd_toStartOf="@id/ad_text_wrapper"
                 app:layout_constraintStart_toStartOf="parent"
@@ -31,8 +32,8 @@
 
                 <com.google.android.gms.ads.nativead.MediaView
                     android:id="@+id/ad_media"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_height="160dp"
 
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -41,11 +42,13 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/ad_text_wrapper"
-                android:layout_width="match_parent"
+                android:layout_width="180dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="right"
                 android:paddingStart="4dp"
+
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ad_media_wrapper">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/icon_and_title"
@@ -57,9 +60,9 @@
 
                     <ImageView
                         android:id="@+id/ad_icon"
-                        android:layout_width="64dp"
-                        android:layout_height="64dp"
-                        android:layout_marginTop="8dp"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="2dp"
                         android:contentDescription="Icon for the ad."
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -70,152 +73,114 @@
                         android:id="@+id/ad_title"
                         style="@style/NativeAd.AdHeadline.Light"
                         android:layout_height="wrap_content"
-                        android:layout_width="0dp"
-                        android:paddingTop="4dp"
-                        android:paddingStart="4dp"
+                        android:paddingHorizontal="2dp"
+                        android:paddingTop="2dp"
                         android:textColor="@color/fullscreen_ads_title_text_color"
-                        android:textSize="18sp"
+                        android:textSize="14sp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0"
                         app:layout_constraintStart_toEndOf="@id/ad_icon"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="Test Ad : ILLEGEAR ATLAS (AMD) (AMD Ryzen" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingStart="4dp"
-                        app:layout_constraintStart_toEndOf="@id/ad_icon"
-                        app:layout_constraintTop_toBottomOf="@id/ad_title">
-
-                        <TextView
-                            android:id="@+id/ad_attribution"
-                            style="@style/NativeAd.AdAttribution.Light"
-                            android:layout_width="wrap_content"
-                            android:layout_marginStart="2dp"
-                            android:background="@color/ad_attribution_bg"
-                            android:text="@string/ad_attribution"
-                            android:textColor="#ffffff"
-                            app:layout_constraintStart_toStartOf="@id/icon_and_title"
-                            app:layout_constraintTop_toBottomOf="@id/icon_and_title"
-                            tools:visibility="visible" />
-
-                        <TextView
-                            android:id="@+id/ad_secondary"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="none"
-                            android:paddingHorizontal="2dp"
-                            android:singleLine="false"
-                            android:textColor="@color/fullscreen_ads_title_secondary_text_color"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/ad_body"
-                            tools:text="Google Play" />
-
-
-                    </LinearLayout>
+                        app:layout_constraintTop_toTopOf="@id/ad_icon"
+                        tools:text="Shopee 10.10 Brands Festival" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <TextView
+                    android:id="@+id/ad_attribution"
+                    style="@style/NativeAd.AdAttribution.Light"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="2dp"
+
+                    android:layout_marginTop="2dp"
+                    android:background="@color/ad_attribution_bg"
+                    android:text="@string/ad_attribution"
+                    android:textColor="#ffffff"
+                    app:layout_constraintTop_toBottomOf="@id/icon_and_title"
+                    app:layout_constraintStart_toStartOf="@id/icon_and_title"
+                    tools:visibility="visible" />
+
+
+                <TextView
+                    android:id="@+id/ad_secondary"
+                    style="@style/NativeAd.AdAdvertiser.Light"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="none"
+                    android:paddingHorizontal="2dp"
+                    android:singleLine="false"
+                    android:textColor="@color/fullscreen_ads_title_secondary_text_color"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ad_attribution"
+                    tools:text="Google Play" />
 
                 <TextView
                     android:id="@+id/ad_body"
                     style="@style/NativeAd.AdBody.Light"
                     android:maxLines="5"
-                    android:paddingHorizontal="4dp"
-                    android:layout_marginVertical="4dp"
+                    android:paddingHorizontal="2dp"
                     android:textColor="@color/fullscreen_ads_title_body_text_color"
-                    android:textSize="16sp"
-                    android:lineSpacingExtra="4sp"
+                    android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/icon_and_title"
+                    app:layout_constraintTop_toBottomOf="@id/ad_secondary"
                     tools:text="Penghantaran Percuma Baucar Diskaun RM15 and Penghantaran Percuma Untuk Perngguna Baharu. Beli di Shopee sekarang!" />
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="4dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ad_media_wrapper">
-
                 <RatingBar
                     android:id="@+id/ad_rating_bar"
+                    style="?android:attr/ratingBarStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="?android:attr/ratingBarStyleSmall"
-                    android:isIndicator="true"
-
-                    android:layout_marginStart="4dp"
+                    android:layout_marginStart="2dp"
                     android:numStars="5"
-                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
                     android:progressBackgroundTint="@color/fullscreen_ads_rating_bar_background_tint"
                     android:progressTint="@color/fullscreen_ads_rating_bar_tint"
                     android:rating="4.4"
                     android:secondaryProgressTint="@color/fullscreen_ads_rating_bar_secondary_tint"
                     android:stepSize="0.1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-
-                    />
+                    app:layout_constraintTop_toTopOf="@id/ad_attribution"
+                    app:layout_constraintStart_toEndOf="@id/ad_price" />
 
 
                 <TextView
                     android:id="@+id/ad_price"
                     style="@style/NativeAd.AdPrice.Light"
+                    android:paddingTop="2dp"
                     android:textColor="@color/fullscreen_ads_price_text_color"
-                    android:textSize="18sp"
+                    android:textSize="11sp"
                     android:textStyle="normal"
-                    android:layout_marginEnd="4dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ad_attribution"
+                    app:layout_constraintBottom_toBottomOf="@id/ad_attribution"
                     tools:text="$19.99" />
 
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             <Button
                 android:id="@+id/ad_cta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/fullscreen_ads_cta_button_tint"
+                android:backgroundTint="@color/fullscreen_ads_cta_orange_button_tint"
                 android:textColor="@color/fullscreen_ads_cta_button_text_color"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/ad_row"
+                app:layout_constraintTop_toBottomOf="@id/ad_media_wrapper"
                 tools:text="INSTALL" />
 
-        </LinearLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <View
-                android:id="@+id/deadRightCorner"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_width="64dp"
-                android:layout_height="32dp"
-                android:layout_gravity="start"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="@android:color/transparent"
-                tools:background="#99FF0000"
-                />
             <View
                 android:id="@+id/deadRight"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_width="24dp"
+                android:layout_width="16dp"
                 android:layout_height="0dp"
                 android:layout_gravity="start"
+                android:elevation="8dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:background="@android:color/transparent"
@@ -238,6 +203,7 @@
 
             <View
                 android:id="@+id/deadBottom"
+                android:elevation="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -255,15 +221,18 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_width="24dp"
+                android:layout_width="16dp"
                 android:layout_height="0dp"
                 android:layout_gravity="start"
+                android:elevation="8dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:background="@android:color/transparent"
                 tools:background="#99FF0000"
                 />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </com.google.android.gms.ads.nativead.NativeAdView>
 </androidx.constraintlayout.widget.ConstraintLayout>

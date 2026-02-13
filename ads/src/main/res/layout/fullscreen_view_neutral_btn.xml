@@ -31,6 +31,32 @@
 
 
 
+            <View
+                android:id="@+id/deadTop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@android:color/transparent"
+                android:elevation="8dp"
+                tools:background="#77ff0000"
+                />
+
+            <View
+                android:id="@+id/deadTopRightCorner"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@android:color/transparent"
+                android:elevation="8dp"
+                tools:background="#77ff0000"
+                />
 
 
 
@@ -107,9 +133,8 @@
                         style="@style/NativeAd.AdHeadline.Light"
                         android:gravity="start"
                         android:layout_width="0dp"
-                        android:layout_marginEnd="32dp"
+                        android:layout_marginEnd="8dp"
                         android:layout_marginStart="8dp"
-                        android:paddingTop="8dp"
                         android:paddingBottom="4dp"
                         android:textColor="@color/fullscreen_ads_title_text_color"
                         android:textSize="16sp"
@@ -125,13 +150,15 @@
                         android:paddingHorizontal="8dp"
                         android:singleLine="false"
                         android:textColor="@color/fullscreen_ads_title_secondary_text_color"
-                        android:textSize="12sp"
+                        android:textSize="13sp"
                         android:textStyle="bold"
                         app:layout_constraintTop_toBottomOf="@id/ad_title"
                         app:layout_constraintStart_toEndOf="@id/ad_icon"
                         tools:text="Advertiser Name Could be large" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
                 <TextView
                     android:id="@+id/ad_body"
@@ -157,8 +184,8 @@
 
                     android:layout_marginVertical="8dp"
                     android:layout_marginHorizontal="12dp"
-                    android:backgroundTint="@color/fullscreen_ads_cta_button_tint"
-                    android:textColor="@color/fullscreen_ads_cta_button_text_color"
+                    android:backgroundTint="@color/fullscreen_ads_cta_neutral_button_tint"
+                    android:textColor="@color/fullscreen_ads_cta_neutral_button_text_color"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:visibility="visible"
@@ -167,79 +194,28 @@
                     app:layout_constraintStart_toStartOf="parent"
                     tools:text="INSTALL" />
 
+<!--                <View-->
+<!--                    android:id="@+id/deadRightBottom"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    android:layout_width="48dp"-->
+<!--                    android:layout_height="64dp"-->
+<!--                    android:clickable="true"-->
+<!--                    android:focusable="true"-->
+<!--                    android:background="@android:color/transparent"-->
+<!--                    tools:background="#CCFF0000"-->
+<!--                    android:elevation="8dp"-->
+<!--                    />-->
+
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
             <View
-                android:id="@+id/deadTop"
+                android:id="@+id/deadRight"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="@android:color/transparent"
-                android:elevation="8dp"
-                tools:background="#77ff0000"
-                />
-
-            <View
-                android:id="@+id/deadTopRightCorner"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_width="96dp"
-                android:layout_height="96dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="@android:color/transparent"
-                android:elevation="8dp"
-                tools:background="#77ff0000"
-                />
-
-            <FrameLayout
-                android:id="@+id/skip_panel"
-                android:layout_width="wrap_content"
-                android:layout_height="52dp"
-                android:elevation="8dp"
-                android:paddingTop="8dp"
-                android:paddingEnd="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/countdown_timer"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center|end"
-                    android:paddingHorizontal="10dp"
-                    tools:text="Remaninng 35 seconds..."
-                    android:textColor="@color/fullscreen_ads_countdown_text_color"
-                    android:visibility="visible" />
-
-                <Button
-                    android:id="@+id/skip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center|end"
-                    android:layout_marginHorizontal="0dp"
-                    android:layout_marginVertical="0dp"
-                    android:background="@drawable/gnt_skip_fs"
-                    android:text="@string/skip_ads_btn_label"
-                    android:textColor="@color/fullscreen_ads_skip_btn_text_color"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-            </FrameLayout>
-
-
-
-
-            <View
-                android:id="@+id/deadBottom"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_width="match_parent"
-                android:layout_height="8dp"
+                android:layout_width="32dp"
+                android:layout_height="match_parent"
                 android:layout_gravity="start"
                 android:clickable="true"
                 android:focusable="true"
@@ -247,6 +223,31 @@
                 tools:background="#99FF0000"
                 />
 
+            <View
+                android:id="@+id/deadRightCorner"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_gravity="start"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@android:color/transparent"
+                tools:background="#99FF0000"
+                />
+
+            <View
+                android:id="@+id/deadLeftCorner"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_gravity="start"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@android:color/transparent"
+                tools:background="#99FF0000"
+                />
 
             <View
                 android:id="@+id/deadLeft"
@@ -260,11 +261,49 @@
                 tools:background="#99FF0000"
                 />
 
-            <View
-                android:id="@+id/deadRight"
+            <FrameLayout
+                android:id="@+id/skip_panel"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:background="@color/fullscreen_ads_skip_panel_bacground"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_width="32dp"
-                android:layout_height="match_parent"
+                android:paddingHorizontal="8dp"
+                android:elevation="8dp"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/countdown_timer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center|end"
+                    android:paddingHorizontal="10dp"
+                    tools:text="Remaining 5 seconds..."
+                    android:textColor="@color/fullscreen_ads_countdown_text_color"
+                    android:visibility="visible"
+                    />
+
+                <Button
+                    android:id="@+id/skip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center|end"
+                    android:layout_marginHorizontal="0dp"
+                    android:layout_marginVertical="0dp"
+                    android:background="@drawable/gnt_skip_fs_neutral"
+                    android:text="@string/skip_ads_btn_label"
+                    tools:visibility="visible"
+                    android:elevation="8dp"
+                    android:textColor="@color/fullscreen_ads_skip_neutral_btn_text_color"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+
+            <View
+                android:id="@+id/deadBottom"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
                 android:layout_gravity="start"
                 android:clickable="true"
                 android:focusable="true"
