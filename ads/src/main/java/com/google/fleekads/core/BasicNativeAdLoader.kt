@@ -100,59 +100,70 @@ open class ChainAdLoader<AdClass>(
         activity: FragmentActivity,
         listener: BaseAdLoaderListener<AdClass>
     ): AdClass? {
+        lastSuccessfulCall = null
+        lastSuccessfulCallIndex = -1
+        var lastFailure: LoadAdError? = null
+
+        listener.onLoading()
+
         chain.forEachIndexed { i, loader ->
             Log.d(TAG, "Loading call #$i from chain...")
-            val chainListener = ChainStepListener(listener, loader)
-            val ad = loader.awaitLoadedWithTimeout(
-                activity = activity,
-                listener = chainListener,
-                timeout = individualCallTimeout
-            )
+            val chainListener = ChainStepListener(loader)
+            val ad = withTimeoutOrNull(individualCallTimeout) {
+                loader.awaitLoaded(
+                    activity = activity,
+                    listener = chainListener
+                )
+            }
 
             if (ad != null) {
                 Log.d(TAG, "Got an ad response!")
                 lastSuccessfulCallIndex = i
                 lastSuccessfulCall = ad
+                listener.onAdLoaded(ad)
                 return ad
             }
 
             if (chainListener.receivedNoFill) {
                 Log.d(TAG, "No fill from call #$i, stopping chain as requested.")
+                lastFailure = chainListener.lastFailure
+                listener.onAdFailedToLoad(
+                    lastFailure ?: LoadAdError(
+                        AdRequest.ERROR_CODE_NO_FILL,
+                        "No fill.",
+                        "",
+                        null,
+                        null
+                    )
+                )
                 return null
             }
+
+            if (chainListener.lastFailure != null) {
+                lastFailure = chainListener.lastFailure
+            } else {
+                lastFailure = LoadAdError(0, "Timeout.", "", null, null)
+            }
         }
+
         Log.d(TAG, "Chain loaded without response.")
+        listener.onAdFailedToLoad(lastFailure ?: LoadAdError(0, "Timeout.", "", null, null))
         return null
     }
 
     private class ChainStepListener<AdClass>(
-        private val delegate: BaseAdLoaderListener<AdClass>,
         override val adLoader: BaseAdLoader<AdClass>
     ) : BaseAdLoaderListener<AdClass>(adLoader) {
         var receivedNoFill: Boolean = false
             private set
-
-        override fun onAdLoaded(ad: AdClass) {
-            delegate.onAdLoaded(ad)
-        }
-
-        override fun onLoading() {
-            delegate.onLoading()
-        }
+        var lastFailure: LoadAdError? = null
+            private set
 
         override fun onAdFailedToLoad(error: LoadAdError) {
-            delegate.onAdFailedToLoad(error)
+            lastFailure = error
             if (error.code == AdRequest.ERROR_CODE_NO_FILL) {
                 receivedNoFill = true
             }
-        }
-
-        override fun onAdClicked() {
-            delegate.onAdClicked()
-        }
-
-        override fun onTimeout() {
-            delegate.onTimeout()
         }
     }
 

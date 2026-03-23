@@ -18,6 +18,8 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.nativead.NativeAd
 import com.google.fleekads.R
@@ -27,20 +29,37 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 class FullscreenAdsFragment2 : Fragment() {
-    lateinit var nativeAd: NativeAd
+    private var nativeAd: NativeAd? = null
+    private var adsStateViewModel: FullscreenNativeAdStateViewModel? = null
 
     @LayoutRes
-    var layout: Int = R.layout.fullscreen_view
-    var delayBeforeSkipMs: Long = FullScreenAds2.DEFAULT_DELAY_BEFORE_SKIP
+    private var layout: Int = R.layout.fullscreen_view
+    private var delayBeforeSkipMs: Long = FullScreenAds2.DEFAULT_DELAY_BEFORE_SKIP
 
     private var timer: CountDownTimer? = null
     private var onFinished: (() -> Unit)? = null
+    private var adToken: String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val args = requireArguments()
+        layout = args.getInt(ARG_LAYOUT_RES, R.layout.fullscreen_view)
+        delayBeforeSkipMs = args.getLong(ARG_DELAY_MS, FullScreenAds2.DEFAULT_DELAY_BEFORE_SKIP)
+        adToken = args.getString(ARG_AD_TOKEN)
+        adsStateViewModel = ViewModelProvider(requireActivity())[FullscreenNativeAdStateViewModel::class.java]
+        nativeAd = adToken?.let { adsStateViewModel?.peek(it) }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val ad = nativeAd ?: run {
+            finalizeImpression()
+            return View(requireContext())
+        }
+
         val adView = inflater.inflate(layout, container, false)
         val skipButton = requireNotNull(adView.findViewById<Button>(R.id.skip)) {
             "Fullscreen Ads Layout should contain skip button."
@@ -56,7 +75,7 @@ class FullscreenAdsFragment2 : Fragment() {
             usesDedicatedCountdown = usesDedicatedCountdown
         )
 
-        com.google.fleekads.core.NativeAdsBinding(adView).populate(nativeAd)
+        com.google.fleekads.core.NativeAdsBinding(adView).populate(ad)
         adView.setBackgroundColor(
             ContextCompat.getColor(requireContext(), com.google.fleekads.R.color.fullscreen_ads_background_color)
         )
@@ -121,8 +140,8 @@ class FullscreenAdsFragment2 : Fragment() {
     }
 
     override fun onDestroy() {
-        if (this::nativeAd.isInitialized) {
-            nativeAd.destroy()
+        if (activity?.isChangingConfigurations != true) {
+            releaseAd(destroy = true)
         }
         super.onDestroy()
     }
@@ -134,11 +153,58 @@ class FullscreenAdsFragment2 : Fragment() {
     fun finalizeImpression() {
         if (!isAdded || parentFragmentManager.isStateSaved) return
 
+        releaseAd(destroy = true)
         parentFragmentManager.popBackStack(
             FullScreenAds2.FullscreenAdPresenter2.BACKSTACK_FRAGMENT_NAME,
             FragmentManager.POP_BACK_STACK_INCLUSIVE
         )
         onFinished?.invoke()
+    }
+
+    private fun releaseAd(destroy: Boolean) {
+        val token = adToken ?: return
+        val releasedAd = adsStateViewModel?.remove(token)
+        adToken = null
+        nativeAd = null
+        if (destroy) {
+            releasedAd?.destroy()
+        }
+    }
+
+    companion object {
+        private const val ARG_AD_TOKEN = "arg_ad_token"
+        private const val ARG_LAYOUT_RES = "arg_layout_res"
+        private const val ARG_DELAY_MS = "arg_delay_ms"
+
+        fun newInstance(
+            adToken: String,
+            @LayoutRes layoutRes: Int,
+            delayBeforeSkipMs: Long
+        ): FullscreenAdsFragment2 = FullscreenAdsFragment2().apply {
+            arguments = Bundle().apply {
+                putString(ARG_AD_TOKEN, adToken)
+                putInt(ARG_LAYOUT_RES, layoutRes)
+                putLong(ARG_DELAY_MS, delayBeforeSkipMs)
+            }
+        }
+    }
+}
+
+internal class FullscreenNativeAdStateViewModel : ViewModel() {
+    private val ads = LinkedHashMap<String, NativeAd>()
+
+    fun put(token: String, nativeAd: NativeAd) {
+        ads[token] = nativeAd
+    }
+
+    fun peek(token: String): NativeAd? = ads[token]
+
+    fun remove(token: String): NativeAd? = ads.remove(token)
+
+    override fun onCleared() {
+        ads.values.forEach { it.destroy() }
+        ads.clear()
+        super.onCleared()
     }
 }
 
@@ -197,13 +263,18 @@ class FullScreenAds2(
             val fm = fragmentActivity.supportFragmentManager
             if (fragmentActivity.isFinishing || fragmentActivity.isDestroyed || fm.isDestroyed) return
 
+            val adStateViewModel = ViewModelProvider(fragmentActivity)[FullscreenNativeAdStateViewModel::class.java]
+            val adToken = "fullscreen_native_" + System.identityHashCode(nativeAd) + "_" + System.nanoTime()
+            adStateViewModel.put(adToken, nativeAd)
+
             fun showAction() {
                 if (wasShown || fm.isStateSaved || fm.findFragmentByTag(FRAGMENT_TAG) != null) return
 
-                val managedFragment = FullscreenAdsFragment2().apply {
-                    nativeAd = this@FullscreenAdPresenter2.nativeAd
-                    layout = layoutRes
+                val managedFragment = FullscreenAdsFragment2.newInstance(
+                    adToken = adToken,
+                    layoutRes = layoutRes,
                     delayBeforeSkipMs = delayBeforeSkip
+                ).apply {
                     setOnFinishedListener(listener)
                 }
 
@@ -222,6 +293,13 @@ class FullScreenAds2(
                         owner.lifecycle.removeObserver(this)
                         if (!fm.isStateSaved) {
                             showAction()
+                        }
+                    }
+
+                    override fun onDestroy(owner: LifecycleOwner) {
+                        owner.lifecycle.removeObserver(this)
+                        if (!wasShown) {
+                            adStateViewModel.remove(adToken)?.destroy()
                         }
                     }
                 })
