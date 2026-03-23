@@ -13,10 +13,11 @@ import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdOptions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withTimeoutOrNull
-import kotlin.coroutines.suspendCoroutine
+import java.util.concurrent.atomic.AtomicBoolean
+import kotlin.coroutines.resume
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
@@ -86,7 +87,11 @@ val DEFAULT_INDIVIDUAL_AD_CALL_TIMEOUT = 5.seconds
 open class ChainAdLoader<AdClass>(
     open val chain: AdChain<AdClass>,
     open val individualCallTimeout: Duration = DEFAULT_INDIVIDUAL_AD_CALL_TIMEOUT
-) : BaseAdLoader<AdClass>(chain[0].adUnitId) {
+) : BaseAdLoader<AdClass>(chain.firstOrNull()?.adUnitId ?: "chain_placeholder") {
+    init {
+        require(chain.isNotEmpty()) { "Chain should contain at least one ad loader." }
+    }
+
     var lastSuccessfulCall: AdClass? = null
     var lastSuccessfulCallIndex: Int = -1
 
@@ -95,23 +100,71 @@ open class ChainAdLoader<AdClass>(
         activity: FragmentActivity,
         listener: BaseAdLoaderListener<AdClass>
     ): AdClass? {
+        lastSuccessfulCall = null
+        lastSuccessfulCallIndex = -1
+        var lastFailure: LoadAdError? = null
+
+        listener.onLoading()
+
         chain.forEachIndexed { i, loader ->
             Log.d(TAG, "Loading call #$i from chain...")
-            val ad = loader.awaitLoadedWithTimeout(
-                activity = activity,
-                listener = listener,
-                timeout = individualCallTimeout
-            )
-            Log.d(TAG, loader.toString())
+            val chainListener = ChainStepListener(loader)
+            val ad = withTimeoutOrNull(individualCallTimeout) {
+                loader.awaitLoaded(
+                    activity = activity,
+                    listener = chainListener
+                )
+            }
+
             if (ad != null) {
                 Log.d(TAG, "Got an ad response!")
                 lastSuccessfulCallIndex = i
                 lastSuccessfulCall = ad
+                listener.onAdLoaded(ad)
                 return ad
             }
+
+            if (chainListener.receivedNoFill) {
+                Log.d(TAG, "No fill from call #$i, stopping chain as requested.")
+                lastFailure = chainListener.lastFailure
+                listener.onAdFailedToLoad(
+                    lastFailure ?: LoadAdError(
+                        AdRequest.ERROR_CODE_NO_FILL,
+                        "No fill.",
+                        "",
+                        null,
+                        null
+                    )
+                )
+                return null
+            }
+
+            if (chainListener.lastFailure != null) {
+                lastFailure = chainListener.lastFailure
+            } else {
+                lastFailure = LoadAdError(0, "Timeout.", "", null, null)
+            }
         }
+
         Log.d(TAG, "Chain loaded without response.")
+        listener.onAdFailedToLoad(lastFailure ?: LoadAdError(0, "Timeout.", "", null, null))
         return null
+    }
+
+    private class ChainStepListener<AdClass>(
+        override val adLoader: BaseAdLoader<AdClass>
+    ) : BaseAdLoaderListener<AdClass>(adLoader) {
+        var receivedNoFill: Boolean = false
+            private set
+        var lastFailure: LoadAdError? = null
+            private set
+
+        override fun onAdFailedToLoad(error: LoadAdError) {
+            lastFailure = error
+            if (error.code == AdRequest.ERROR_CODE_NO_FILL) {
+                receivedNoFill = true
+            }
+        }
     }
 
     companion object {
@@ -132,14 +185,25 @@ open class BasicNativeAdLoader(
 ) : BaseAdLoader<NativeAd>(adUnitId) {
     @RequiresPermission(Manifest.permission.INTERNET)
     override fun load(activity: Activity, listener: BaseAdLoaderListener<NativeAd>) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val adLoader = AdLoader.Builder(activity, adUnitId).withNativeAdOptions(nativeAdOptions)
-                .withAdListener(listener).forNativeAd { ad ->
-                    if (activity.isFinishing) return@forNativeAd
-                    activity.runOnUiThread {
+        CoroutineScope(Dispatchers.Main.immediate).launch {
+            if (activity.isFinishing || activity.isDestroyed) {
+                listener.onAdFailedToLoad(
+                    LoadAdError(0, "Activity is finishing/destroyed.", "", null, null)
+                )
+                return@launch
+            }
+
+            val adLoader = AdLoader.Builder(activity, adUnitId)
+                .withNativeAdOptions(nativeAdOptions)
+                .withAdListener(listener)
+                .forNativeAd { ad ->
+                    if (!activity.isFinishing && !activity.isDestroyed) {
                         listener.onAdLoaded(ad)
+                    } else {
+                        ad.destroy()
                     }
-                }.build()
+                }
+                .build()
 
             listener.onLoading()
             adLoader.loadAd(AdRequest.Builder().build())
@@ -149,44 +213,43 @@ open class BasicNativeAdLoader(
     @RequiresPermission(Manifest.permission.INTERNET)
     override suspend fun awaitLoaded(
         activity: FragmentActivity, listener: BaseAdLoaderListener<NativeAd>
-    ) = suspendCoroutine { continuation ->
+    ): NativeAd? = suspendCancellableCoroutine { continuation ->
+        val isResolved = AtomicBoolean(false)
+
+        fun tryResumeWith(value: NativeAd?) {
+            if (isResolved.compareAndSet(false, true) && continuation.isActive) {
+                continuation.resume(value) {}
+            } else if (value != null) {
+                value.destroy()
+            }
+        }
+
         val mListener = object : NativeAdLoaderListener(listener.adLoader) {
             override fun onAdFailedToLoad(error: LoadAdError) {
-                activity.runOnUiThread {
-                    if (continuation.context.isActive) {
-                        listener.onAdFailedToLoad(error)
-                        continuation.resumeWith(Result.success(null))
-                    } else {
-                        listener.onTimeout()
-                        continuation.resumeWith(Result.success(null))
-                    }
+                if (!isResolved.get()) {
+                    listener.onAdFailedToLoad(error)
                 }
+                tryResumeWith(null)
             }
 
             override fun onAdLoaded(ad: NativeAd) {
-                activity.runOnUiThread {
-                    if (continuation.context.isActive) {
-                        listener.onAdLoaded(ad)
-                        continuation.resumeWith(Result.success(ad))
-                    } else {
-                        listener.onTimeout()
-                        continuation.resumeWith(Result.success(null))
-                    }
+                if (!isResolved.get()) {
+                    listener.onAdLoaded(ad)
                 }
+                tryResumeWith(ad)
             }
 
             override fun onLoading() {
-                activity.runOnUiThread {
-                    if (continuation.context.isActive) {
-                        listener.onLoading()
-                    } else {
-                        listener.onTimeout()
-                    }
+                if (!isResolved.get()) {
+                    listener.onLoading()
                 }
             }
+        }
+
+        continuation.invokeOnCancellation {
+            isResolved.set(true)
         }
 
         this@BasicNativeAdLoader.load(activity, mListener)
     }
 }
-
