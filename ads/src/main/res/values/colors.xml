@@ -26,4 +26,32 @@
     <color name="fullscreen_ads_text_area_panel_background">#FFFEFEFE</color>
     <color name="fullscreen_ads_skip_panel_bacground">#A0FFFFFF</color>
     <color name="ad_attribution_bg">#4F7E58</color>
+
+
+    <color name="fullscreen_ads_background_color__light">#FFEEEEEE</color>
+    <color name="mediaview_background__light">#FFFFFFFF</color>
+    <color name="fullscreen_ads_text_area_background__light">#b0cccccc</color>
+    <color name="fullscreen_ads_cta_button_tint__light">#43A047</color>
+
+    <color name="fullscreen_ads_cta_orange_button_tint__light">#FF8F00</color>
+
+    <color name="fullscreen_ads_title_text_color__light">#ff333333</color>
+    <color name="fullscreen_ads_title_secondary_text_color__light">#ff555555</color>
+    <color name="fullscreen_ads_title_body_text_color__light">#ff333333</color>
+    <color name="fullscreen_ads_countdown_text_color__light">#FF000000</color>
+    <color name="fullscreen_ads_skip_btn_text_color__light">#000</color>
+    <color name="fullscreen_ads_skip_neutral_btn_text_color__light">#FFFEFEFE</color>
+    <color name="fullscreen_ads_cta_neutral_button_tint__light">#FFF3F4F6</color>
+    <color name="fullscreen_ads_cta_neutral_button_text_color__light">#FF111827</color>
+    <color name="fullscreen_ads_cta_button_text_color__light">#FEFEFE</color>
+    <color name="fullscreen_ads_price_text_color__light">#ff333333</color>
+    <color name="fullscreen_ads_rating_bar_tint__light">#ffffaa00</color>
+    <color name="fullscreen_ads_rating_bar_secondary_tint__light">#ff808000</color>
+    <color name="fullscreen_ads_rating_bar_background_tint__light">#ff333333</color>
+
+    <color name="gnt_skip_fs_neutral_btn_background__light">#FF273141</color>
+    <color name="gnt_skip_fs_neutral_btn_background_night__light">#FFF3F4F6</color>
+    <color name="fullscreen_ads_text_area_panel_background__light">#FFFEFEFE</color>
+    <color name="fullscreen_ads_skip_panel_bacground__light">#A0FFFFFF</color>
+    <color name="ad_attribution_bg__light">#4F7E58</color>
 </resources>
